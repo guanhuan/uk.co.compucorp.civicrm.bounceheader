@@ -123,31 +123,16 @@ function bounceheader_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
 }
 
 /**
- * Functions below this ship commented out. Uncomment as required.
+ * Implements hook_civicrm_alterMailParams().
  *
+ * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_alterMailParams
+ */
+function bounceheader_civicrm_alterMailParams(&$params, $context = NULL) {
+  if ($context != 'civimail') {
+    return;
+  }
 
-/**
- * Implements hook_civicrm_preProcess().
- *
- * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_preProcess
- *
-function bounceheader_civicrm_preProcess($formName, &$form) {
-
-} // */
-
-/**
- * Implements hook_civicrm_navigationMenu().
- *
- * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_navigationMenu
- *
-function bounceheader_civicrm_navigationMenu(&$menu) {
-  _bounceheader_civix_insert_navigation_menu($menu, NULL, array(
-    'label' => ts('The Page', array('domain' => 'uk.co.compucorp.civicrm.bounceheader')),
-    'name' => 'the_page',
-    'url' => 'civicrm/the-page',
-    'permission' => 'access CiviReport,access CiviContribute',
-    'operator' => 'OR',
-    'separator' => 0,
-  ));
-  _bounceheader_civix_navigationMenu($menu);
-} // */
+  if (!empty($params['Return-Path']) && empty($params['Return-Path'])) {
+    $params['headers']['X-CiviMail-Bounce'] = 'Return-Path:'.$params['Return-Path'];
+  }
+}

@@ -2,7 +2,7 @@
 <extension key="uk.co.compucorp.civicrm.bounceheader" type="module">
   <file>bounceheader</file>
   <name>Bounce Header</name>
-  <description>This module copies VERP Return-to address to X-CiviMail-Bounce header to allow CiviCRM bounce handling even if Return-to is replaced by sending agent such as Amazon SES</description>
+  <description>This module copies the VERP address in Return-Path to X-CiviMail-Bounce header.</description>
   <license>AGPL-3.0</license>
   <maintainer>
     <author>Guanhuan Chen</author>
